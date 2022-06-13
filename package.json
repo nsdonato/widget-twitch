@@ -10,7 +10,7 @@
     "prebuild": "rimraf dist",
     "build:client": "cd client && pnpm i && pnpm build",
     "build:server": "nest build",
-    "build": "pnpm run build:server && pnpm run build:client",
+    "build": "pnpm run build:server && pnpm run build:client --output public",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
