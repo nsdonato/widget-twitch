@@ -15,6 +15,8 @@
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
     "start": "pnpm run migrate:dev && est start",
+    "start:server": "nvm use && pnpm run start:dev",
+    "start:client": "nvm use && cd client && pnpm run dev",
     "start:dev": "pnpm run migrate:dev && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "pnpm run migrate:deploy && node dist/main",

@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Chats from './Chats';
 import ConfettiWidget from './Confetti';
+import ZumbidoWidget from './Zumbido';
 import DetectBrowser from './DetectBrowser';
-import Hydrate from './Hydrate';
-import NewQuestion from './NewQuestion';
 import SelectedChat from './SelectedChat';
 import SetBackgrounWidget from './SetBackgrounWidget';
 import './styles.css';
@@ -15,12 +14,14 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/widgets/selected-chat" element={<SelectedChat />} />
-        <Route path="/widgets/new-question" element={<NewQuestion />} />
-        <Route path="/widgets/hydrate" element={<Hydrate />} />
         <Route path="/widgets/detect-browser" element={<DetectBrowser />} />
         <Route
           path="/widgets/confetti"
           element={<h1>{<ConfettiWidget />}</h1>}
+        />
+        <Route
+          path="/widgets/zumbido"
+          element={<h1>{<ZumbidoWidget />}</h1>}
         />
         <Route
           path="/widgets/selected-background"

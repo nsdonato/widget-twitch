@@ -12,7 +12,7 @@ import { Chat } from '../common/interfaces/chat.interface';
 export class EventsGateway {
   @WebSocketServer() server: Server;
 
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly chatService: ChatService) { }
 
   @SubscribeMessage('selected-chat')
   handleSelectedChat(@MessageBody() chat: Chat) {
@@ -23,6 +23,11 @@ export class EventsGateway {
   @SubscribeMessage('confetti')
   sendConfetti() {
     this.server.emit('confetti');
+  }
+
+  @SubscribeMessage('zumbido')
+  sendZumbido() {
+    this.server.emit('zumbido');
   }
 
   @SubscribeMessage('new-question')

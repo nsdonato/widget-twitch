@@ -8,14 +8,8 @@ This application is built on top of [Nest](https://github.com/nestjs/nest) frame
 
 | Command       | Description                          |
 | ------------- | ------------------------------------ |
-| `hola`        | When it finds hello in the message   |
-| `!bot-saluda` | Bot send a message to who call it    |
 | `!confetti`   | Send confetti, ideal for celebration |
-| `!redes`      | Share social networks                |
-| `!github`     | Share github                         |
-| `!twitter`    | Share twitter                        |
-| `!twitch`     | Share twitch                         |
-| `!linkedin`   | Share Linkedin                       |
+| `!zumbido`    | Send zumbido, ideal for celebration  |
 
 ## Widgets available
 
@@ -24,32 +18,23 @@ This application is built on top of [Nest](https://github.com/nestjs/nest) frame
 |    Widget     |                Description                 |
 | :-----------: | :----------------------------------------: |
 |     Chat      |           http://localhost:3000            |
-| Selected Chat | http://localhost:3000/widget/selected-chat |
 |   Confetti    |   http://localhost:3000/widget/confetti    |
-
-## API Endpoints
-
-| Endpoint             | Method | Description                    | Required search parameters |
-| -------------------- | ------ | ------------------------------ | -------------------------- |
-| `/api/chat`          | GET    | Get all chats                  | skip: int, take: int       |
-| `/api/chat/selected` | GET    | Get selected chat              | none                       |
-| `/api/chat/all`      | DELETE | Delete/Prune all chats from DB | none                       |
-| `/api/chat/:chatId`  | DELETE | Delete one chat                | none                       |
+|   Zumbido     |   http://localhost:3000/widget/zumbido     |
 
 ## Socket Events available
 
 | Event name      | Direction | Description                                 |
 | --------------- | --------- | ------------------------------------------- |
-| `selected-chat` | Pub / Sub | Set selected chat, emits the chat body      |
 | `confetti`      | Sub       | Triggers when confetti is sent, emits ovoid |
+| `zumbido`       | Sub       | Triggers when zumbido is sent, emits ovoid  |
 
 ## Web application
 
 Application is available at http://localhost:3000 and can be accessed by any browser, the following routes will be available:
 
 - `/`: Home page
-- `/widget/selected-chat`: Selected chat widget
 - `/widget/confetti`: Confetti widget
+- `/widget/zumbido`: Zumbido widget
 
 ## Installation
 

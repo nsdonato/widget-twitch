@@ -11,23 +11,13 @@ export class TwitchBotService {
   private clientId = this.config.get<string>('TWITCH_API_CLIENT_ID');
   private tmiPassword = this.config.get<string>('TWITCH_TMI_PASSWORD');
   private channels = this.config.get<string>('TWITCH_CHANNEL');
-  private socialLinks: SocialLink[] = [];
 
   constructor(
     private readonly config: ConfigService,
     private readonly chatService: ChatService,
     private readonly events: EventsGateway,
   ) {
-    this.socialLinks = Object.keys(process.env)
-      .filter((s) => s.startsWith('SOCIAL_LINK_'))
-      .map((social) => {
-        const name = social.split('SOCIAL_LINK_')[1].toLowerCase();
-        return {
-          name: name.charAt(0).toUpperCase() + name.slice(1),
-          command: `!${name}`,
-          url: process.env[social],
-        };
-      });
+
 
     this.setupClient({
       options: { debug: true },
@@ -53,7 +43,6 @@ export class TwitchBotService {
         channel: args[0],
         user: args[1],
         rewardId: args[2],
-        // state: args[3]
       });
     });
 
@@ -102,61 +91,13 @@ export class TwitchBotService {
 
     message = message.toLowerCase();
 
-    const newQuestionReward = this.config.get<string>('REWARD_ID_NEW_QUESTION');
-    if (newQuestionReward && state['custom-reward-id'] === newQuestionReward) {
-      console.log('Nueva pregunta de la comunidad');
-      this.events.newQuestion(chat);
-    }
-
-    const hidrateReward = this.config.get<string>('REWARD_ID_HYDRATE');
-    if (hidrateReward && state['custom-reward-id'] === hidrateReward) {
-      this.events.hydrate(username);
-    }
-
-    if (message.includes('hola')) {
-      this.tmiClient.say(
-        channel,
-        `¡Holaaaa! @${state.username}, 🤗 🤗, ¿Cómo estás?`,
-      );
-    }
-
-    if (message === '!bot-saluda') {
-      this.tmiClient.say(channel, `Hola @${state.username}, soy un bot`);
-    }
-
     if (message.includes('!confetti')) {
       this.events.sendConfetti();
     }
 
-    if (message === '!jugar') {
-      this.tmiClient.say(
-        channel,
-        `@${state.username}, lo siento de momento no tengo ningún juego instalado!`,
-      );
+    if (message.includes('!zumbido')) {
+      this.events.sendZumbido();
     }
 
-    if (message.includes('!redes') && this.socialLinks.length) {
-      this.tmiClient.say(
-        channel,
-        `
-          Por aquí tienes mis redes sociales ❤️: ${this.socialLinks.map(
-            (social) => social.command + ' ',
-          )}
-        `,
-      );
-
-      this.socialLinks.forEach((socialLink) => {
-        this.tmiClient.say(channel, `${socialLink.name}: ${socialLink.url}`);
-      });
-    }
-
-    this.socialLinks.forEach((socialLink) => {
-      if (message.includes(socialLink.command)) {
-        this.tmiClient.say(
-          channel,
-          `Hey! @${state.username}, mi cuenta de 🤟✍ ${socialLink.name} es: ${socialLink.url}`,
-        );
-      }
-    });
   }
 }
